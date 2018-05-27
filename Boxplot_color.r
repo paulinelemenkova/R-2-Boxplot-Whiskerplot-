@@ -1,4 +1,4 @@
-#Empirical cumulative distribution function, BoxPlot (or WhiskerPlot)
+#BoxPlot (or WhiskerPlot)
 
 MDepths <- read.csv("Depths.csv", header=TRUE, sep = ",")
 MDepth<- data.frame(MDepths, nrow = 1008, ncol = 25)	
