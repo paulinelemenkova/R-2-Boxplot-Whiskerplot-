@@ -16,13 +16,47 @@ MDepths_df <- data.frame(profiles = 1:25, depths = c(df$profile1, df$profile2, d
 # шаг-4. чертим боксплот по датафрейму MDepths_df. наводим красоту (палитра, линии).
 ggboxplot_MDepths<- ggboxplot(
 	MDepths_df, 
+	title = "Mariana Trench: \nNotched Boxplot for Data Groups by 25 Profiles",
 	x = "profiles", 
 	y = "depths", 
-	width = 0.5, 
-	color = "profiles", 
+#	add = "jitter",
+	width = 0.8, 
+	notch = TRUE,
 	fill = "profiles",
-	palette =c("magma")
-	)
+#	color = "black", 	
+	linetype = 1, size = .1,
+#	outlier.colour = "grey44",
+	palette = c("magma"),
+#	size = 1,
+	orientation = "horizontal"
+	) 
+   
+# шаг-5 добавляем обертку темы (легенда, оси, подписи и пр.)
+p<- ggboxplot_MDepths + 
+	theme(
+    plot.title = element_text(family = "Skia", face = 2, size = 10),
+    panel.background=ggplot2::element_rect(fill = "white"),
+    legend.justification = c(.85, .1), 
+    legend.position = c(.85, .1),
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6),
+    legend.direction = "vertical",
+    legend.background = element_rect(fill = "white"),
+    legend.key.width = unit(.3,"cm"),
+    legend.key.height = unit(.3,"cm"),
+    legend.spacing = unit(.3,"cm"),
+    legend.box.background = element_rect(colour = "honeydew4",size=0.2),
+    legend.text = element_text(family = "Arial", colour="black", size=6, face=1),
+    legend.title = element_text(family = "Arial", colour="black", size=6, face=1),
+    strip.text.x = element_text(colour = "white"),
+    panel.grid.major = element_line("gray24", size = 0.1, linetype = "dotted"),
+    panel.grid.minor = element_line("gray24", size = 0.1, linetype = "dotted"),
+    axis.text.x = element_text(family = "Arial", face = 3, color = "gray24",size = 5, angle = 15),
+    axis.text.y = element_text(family = "Arial", face = 3, color = "gray24",size = 4, angle = 90),
+    axis.ticks.length=unit(.1,"cm"),
+    axis.line = element_line(size = .3, colour = "grey80"),
+    axis.title.y = element_text(margin = margin(t = 20, r = .3), family = "Times New Roman", face = 1, size = 6),
+    axis.title.x = element_text(family = "Times New Roman", face = 1, size = 6,margin = margin(t = .2)))
 
-# шаг-5. сохраняем боксплот в pdf.	
+# шаг-6. сохраняем боксплот в pdf.	
 ggsave("ggboxplot_MarianaDepths.pdf", device = cairo_pdf, fallback_resolution = 300, width = 210, height = 297, units = "mm")
